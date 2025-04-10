@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+     <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+     </settings>       
+  
+     <!-- 별칭셋팅 -->
+     <typeAliases>
+        <typeAlias type="net.musecom.community.dto.Users" alias="Users" />
+        <typeAlias type="net.musecom.community.dto.BoardAdminDto" alias="Admin" />
+        <typeAlias type="net.musecom.community.dto.BoardCategory" alias="Category" />
+        <typeAlias type="net.musecom.community.dto.BoardDto" alias="BoardDto" />
+        <typeAlias type="net.musecom.community.dto.FileDto" alias="FileDto" />
+     </typeAliases>
+
+  </configuration>

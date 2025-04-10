@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.musecom.community.mapper.BoardMapper">
+  
+   <select id="allList" parameterType="int" resultType="BoardDto">
+      SELECT * FROM board WHERE bbsid=#{bid} ORDER BY id DESC
+   </select>
+   
+   <select id="getBoardById" parameterType="long" resultType="BoardDto">
+      SELECT * FROM board WHERE id = #{id}
+   </select>
+   
+   <!-- 비밀번호 확인 -->
+   <select id="getBoardByPassword" parameterType="Map" resultType="BoardDto">
+      SELECT * FROM board WHERE id=#{id} and password=#{password}
+   </select>
+  
+   <insert id="setBoard" parameterType="BoardDto" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO board
+      (bbsid, ref, step, depth, writer, userid, password, title, content, sec, category)
+      VALUES
+      (#{bbsid}, #{ref}, #{step}, #{depth}, #{writer}, #{userid}, #{password}, #{title}, #{content}, #{sec}, #{category})
+   </insert>
+   <update id="setUpdateBoard" parameterType="BoardDto">
+      UPDATE board SET
+        writer = #{writer},
+        password = #{password},
+        title = #{title},
+        content = #{content},
+        sec=#{sec},
+        category=#{category}
+      WHERE id=#{id}
+   </update>
+   <delete id="setDeleteBoard" parameterType="long">
+      DELETE from board WHERE id=#{id}
+   </delete>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+   <!-- 메인 레이아웃 -->
+   <definition name="main.*" template="/WEB-INF/views/layout/main-layout.jsp">
+       <put-attribute name="title" value="SP커뮤니티" />
+       <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
+       <put-attribute name="aside" value="/WEB-INF/views/inc/aside.jsp" />
+       <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+       <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+   </definition>
+   
+   <!-- 관리자 레이아웃 -->
+   <definition name="admin.*" template="/WEB-INF/views/layout/admin-layout.jsp">
+       <put-attribute name="title" value="SP커뮤니티 관리자" />
+       <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
+       <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+       <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+   </definition>
+   
+   <!-- 커뮤니티타일즈 -->
+   <definition name="board.list" template="/WEB-INF/views/layout/board-layout.jsp">
+       <put-attribute name="title" value="SP커뮤니티 보드" />
+       <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
+       <put-attribute name="aside" value="/WEB-INF/views/inc/aside.jsp" />
+       <put-attribute name="body" value="{1}" />
+       <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+   </definition>
+   
+</tiles-definitions>

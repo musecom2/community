@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.musecom.community.mapper.FileMapper">
+
+<insert id="insertFile" parameterType="FileDto">
+  INSERT INTO files 
+  (bid, ofilename, nfilename, ext, filesize)
+  VALUES
+  (#{bid}, #{ofilename}, #{nfilename}, #{ext}, #{filesize})
+</insert>
+
+<update id="updateFileByBid" parameterType="map">
+   UPDATE files SET bid=#{bid} WHERE bid=#{tempId}
+</update>
+
+<delete id="deleteFile" parameterType="long">
+   DELETE FROM files WHERE id=#{id} 
+</delete>
+
+<select id="selectFileByBid" parameterType="long" resultType="FileDto">
+   SELECT * FROM files WHERE bid=#{bid}
+</select>
+
+<select id="fileById" parameterType="long" resultType="FileDto">
+   SELECT * FROM files WHERE id=#{id}
+</select>
+
+<select id="fileByFileName" parameterType="String" resultType="FileDto">
+   SELECT * FROM files WHERE nfilename=#{fname}
+</select>
+
+
+</mapper>  
