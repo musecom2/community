@@ -19,9 +19,15 @@ public class BoardService {
 	@Autowired
 	private BoardMapper bMapper;
 	
-	public PageInfo<BoardDto> getAllList(int bbsid, int page, int size){
+	public PageInfo<BoardDto> getAllList(int bbsid, int page, int size, String option, String search){
 		PageHelper.startPage(page, size);
-		List<BoardDto> list = bMapper.allList(bbsid);
+		List<BoardDto> list = null;
+
+		if(search != null) {
+		  list = bMapper.getSearchList(bbsid, option , search);	
+		}else {
+		  list = bMapper.allList(bbsid);
+		}
 		return new PageInfo<>(list);
 	}
 	

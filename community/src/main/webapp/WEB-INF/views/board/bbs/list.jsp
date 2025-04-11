@@ -38,13 +38,14 @@
             <div class="select-box">
                <div class="selected">--검색선택-- <i class="ri-arrow-down-s-line"></i> </div>
                <ul class="options">
-                  <li data-value="author">이름검색</li>
+                  <li data-value="writer">이름검색</li>
                   <li data-value="title">제목검색</li>
                   <li data-value="content">내용검색</li>
                </ul>
             </div>    
-            <input type="search" class="search-input" placeholder="검색...">
+            <input type="search" name="search" class="search-input" placeholder="검색...">
             <input type="hidden" id="option" name="option">
+            <input type="hidden" name="bid" value="${param.bid }" />
             <button type="submit" class="btn-search">검색</button>
             <button type="reset" class="btn-search" id="reset">초기화</button>
         </form>

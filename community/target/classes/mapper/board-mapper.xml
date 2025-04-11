@@ -8,6 +8,25 @@
       SELECT * FROM board WHERE bbsid=#{bid} ORDER BY ref DESC, step ASC
    </select>
    
+   <select id="getSearchList" parameterType="Map" resultType="BoardDto">
+      SELECT * FROM board 
+         <where>
+         bbsid=#{bid}
+            <choose>
+                <when test="option == 'writer'">
+                  AND writer LIKE CONCAT ('%', #{search}, '%')
+                </when>
+                <when test="option == 'title'">
+                  AND title LIKE CONCAT ('%', #{search}, '%')
+                </when>
+                <when test="option == 'content'">
+                  AND content LIKE CONCAT ('%', #{search}, '%')
+                </when>
+            </choose>
+         </where>
+         ORDER BY ref DESC, step ASC
+   </select>
+   
    <select id="getBoardById" parameterType="long" resultType="BoardDto">
       SELECT * FROM board WHERE id = #{id}
    </select>

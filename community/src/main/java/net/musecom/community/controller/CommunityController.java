@@ -51,9 +51,12 @@ public class CommunityController {
 			@RequestParam(value="bid", defaultValue = "1") int bid, 
 			@RequestParam(value="page", defaultValue="1") int page,
 			@RequestParam(value="size", defaultValue="10") int size,
+			@RequestParam(value="option", required=false) String option,
+			@RequestParam(value="search", required=false) String search,
 			Model model, 
 			HttpServletRequest request) {
 		
+	
 		//쓰레기 파일 삭제를 위한 경로 셋팅
 		String uploadPath = request.getSession().getServletContext().getRealPath("/res/upload/"+bid);
         fileService.trashFile(uploadPath);
@@ -67,8 +70,8 @@ public class CommunityController {
         }
 
 		BoardAdminDto adto = baService.getSelectById(bid);
-		PageInfo<BoardDto> pageInfoDtos = bService.getAllList(bid, page, size);
-		
+	    PageInfo<BoardDto> pageInfoDtos = bService.getAllList(bid, page, size, option, search);
+
 		String skin = adto.getSkin();
 		
 		String skinPath = "/WEB-INF/views/board/"+skin+"/list.jsp";

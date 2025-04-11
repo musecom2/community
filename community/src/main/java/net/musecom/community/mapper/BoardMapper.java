@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import net.musecom.community.dto.BoardDto;
 
@@ -11,6 +12,10 @@ import net.musecom.community.dto.BoardDto;
 public interface BoardMapper {
 
 	List<BoardDto> allList(int bid);
+	List<BoardDto> getSearchList(
+			 @Param("bid") int bid, 
+			 @Param("option") String option, 
+			 @Param("search") String search);
 	BoardDto getBoardById(long id);
 	int setBoard(BoardDto dto);
 	int setUpdateBoard(BoardDto dto);
