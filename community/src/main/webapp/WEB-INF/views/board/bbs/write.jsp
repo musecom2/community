@@ -181,6 +181,11 @@ $(function(){
             <input type="hidden" name="bbsid" id="bbsid" value="${param.bid }" />
             <input type="hidden" name="tempBid" id="tempBid" value="${tempBid }" />
             <input type="hidden" name="addFileSize" id="addFileSize" value="0" />
+            <c:if test="${param.ref != null }">
+               <input type="hidden" name="ref" value="${param.ref }" />
+               <input type="hidden" name="step" value="${param.step }" />
+               <input type="hidden" name="depth" value="${param.depth }" /> 
+            </c:if>
             <sec:csrfInput/>
             
         </form>

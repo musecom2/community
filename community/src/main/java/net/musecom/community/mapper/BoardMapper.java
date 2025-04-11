@@ -16,4 +16,7 @@ public interface BoardMapper {
 	int setUpdateBoard(BoardDto dto);
 	int setDeleteBoard(long id);
 	BoardDto getBoardByPassword(Map<String, Object> params);
+	
+	void updateRef(long id);
+	void updateStep(Map<String, Object> map);
 }

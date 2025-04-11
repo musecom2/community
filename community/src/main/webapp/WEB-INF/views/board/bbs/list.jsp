@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="/community/res/css/skin/bbs/style.css">    
 <script src="/community/res/js/skin/bbs/script.js" defer></script>
 <c:set var="nowMills" value="<%=System.currentTimeMillis() %>" />
+<c:set var="maxNum" value="${pageInfo.total - (pageInfo.pageNum - 1)*pageInfo.pageSize }" />
 
 <c:if test="${not empty message }">
    <script>
@@ -50,15 +51,18 @@
     </div>    
     <div class="d-flex justify-content-between pb-2">
         <div class="init-text d-flex">
-            <div class="all-text"><i class="ri-file-list-line"></i> 총 글수<span>123</span>건</div>
-            <div class="now-text">현재 페이지<span>1/12</span></div>
+            <div class="all-text"><i class="ri-file-list-line"></i> 총 글수<span>${pageInfo.total }</span>건</div>
+            <div class="now-text">현재 페이지<span>${pageInfo.pageNum}/${pageInfo.pages }</span></div>
         </div>
         <div class="sortting">
             <span>페이지당 목록</span>
-            <select class="list-ct">
+            <select name="size" class="list-ct">
                <option value="10">10</option>
+               <option value="15">15</option>
                <option value="20">20</option>
                <option value="30">30</option>
+               <option value="50">50</option>
+               <option value="100">100</option>
             </select>
         </div>
     </div>
@@ -81,11 +85,14 @@
         </thead>   
         <tbody>
            <!-- 루프 -->
-           <c:forEach var="list" items="${lists }" varStatus="status">
+           <c:forEach var="list" items="${pageInfo.list }" varStatus="status">
             <c:set var="difMill" value="${nowMills - list.wdate.time }" />
            <tr>
-             <td class="text-center">${list.id }</td>
-             <td>
+             <td class="text-center">${maxNum }</td>
+             <td style="padding-left: ${list.depth * 20}px;">
+             <c:if test="${list.depth > 0 }">
+                 <i class="ri-corner-down-right-line"></i>
+              </c:if>
              <c:choose>
               <c:when test="${badmin.vgrade > user.grade }">
                  ${list.title } 
@@ -117,6 +124,7 @@
              </td>
              <td class="text-center">${list.hit }</td>
            </tr> 
+           <c:set var="maxNum" value="${maxNum - 1 }" />
            </c:forEach>
           <!-- /루프-->
         </tbody> 
@@ -127,15 +135,60 @@
         </c:if>   
     </div>
     <ul class="paging">
-       <li><a href="#" class="first"><i class="ri-arrow-left-double-line"></i></a></li> 
-       <li><a href="#" class="prev"><i class="ri-arrow-left-s-line"></i></a></li>
-       <li><a href="#" class="act">1</a></li>
-       <li><a href="#">2</a></li>
-       <li><a href="#">3</a></li>
-       <li><a href="#">4</a></li>
-       <li><a href="#">5</a></li>
-       <li><a href="#" class="next"><i class="ri-arrow-right-s-line"></i></a></li> 
-       <li><a href="#" class="last"><i class="ri-arrow-right-double-line"></i></a></li>
+       <!-- 첫 페이지 -->
+       <li><a href="?bid=${param.bid }&size=${param.size}&page=1" class="first">
+               <i class="ri-arrow-left-double-line"></i>
+           </a>
+       </li> 
+       
+       <!-- 이전 페이지 -->
+       <li>
+       <c:choose>
+          <c:when test="${pageInfo.hasPreviousPage }">
+              <a href="?bid=${param.bid }&size=${param.size}&page=${pageInfo.prePage}" 
+                 class="prev">
+                 <i class="ri-arrow-left-s-line"></i>
+              </a>
+          </c:when>
+          <c:otherwise>
+              <a href="javascript:void(0);" class="prev disabled">
+                  <i class="ri-arrow-left-s-line"></i>
+              </a>
+          </c:otherwise>    
+       </c:choose>       
+       </li>
+       
+       <!--  페이지 루프 -->
+       <c:forEach var="i" begin="${pageInfo.navigateFirstPage }" 
+                          end="${pageInfo.navigateLastPage }">
+           <li><a href="?bid=${parmam.bid }&page=${i}&size=${param.size}" 
+                  class="${ i == pageInfo.pageNum ? 'act' : '' }">${i }</a></li>
+       </c:forEach>
+
+       
+       <!-- 다음 페이지 -->
+       <li>
+       <c:choose>
+          <c:when test="${pageInfo.hasNextPage }">
+             <a href="?bid=${param.bid }&page=${pageInfo.nextPage}&size=${param.size}"
+                class="next">
+                <i class="ri-arrow-right-s-line"></i>
+             </a>
+          </c:when>
+          <c:otherwise>
+             <a href="javascript:void(0)" class="next disabled">
+                   <i class="ri-arrow-right-s-line"></i>
+             </a>
+          </c:otherwise>
+       </c:choose>
+       </li> 
+      
+       <!-- 마지막 페이지 -->
+       <li>
+           <a href="?bid=${param.bid }&page=${pageInfo.pages}&size=${param.size}" class="last">
+              <i class="ri-arrow-right-double-line"></i>
+           </a>
+        </li>
     </ul>
     <!-- / design list-->
 </div>

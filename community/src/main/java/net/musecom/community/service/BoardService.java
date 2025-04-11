@@ -7,6 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import net.musecom.community.dto.BoardDto;
 import net.musecom.community.mapper.BoardMapper;
 
@@ -16,8 +19,10 @@ public class BoardService {
 	@Autowired
 	private BoardMapper bMapper;
 	
-	public List<BoardDto> getAllList(int bbsid){
-		return bMapper.allList(bbsid);
+	public PageInfo<BoardDto> getAllList(int bbsid, int page, int size){
+		PageHelper.startPage(page, size);
+		List<BoardDto> list = bMapper.allList(bbsid);
+		return new PageInfo<>(list);
 	}
 	
 	public BoardDto getBoardById(long id) {
@@ -43,4 +48,14 @@ public class BoardService {
 		return bMapper.getBoardByPassword(params);
 	}
 	
+	public void updateRef(long id) {
+		bMapper.updateRef(id);
+	}
+	
+	public void updateStep(long ref, int step) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("ref", ref);
+		map.put("step", step);
+		bMapper.updateStep(map);
+	}
 }

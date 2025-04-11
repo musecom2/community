@@ -83,8 +83,8 @@
 
      <div class="d-flex justify-content-end pt-20">
         <a href="/community/board" class="btn">목록</a>
-        <c:if test="${badmin.regrade <= user.grade }">
-         <a href="/community/board/rewrite?id=${bbs.id }&bid=${bbs.bbsid}" class="btn ms-10">답글쓰기</a>
+        <c:if test="${badmin.regrade <= user.grade || badmin.regrade == 0 }">
+         <a href="/community/board/write?ref=${bbs.ref}&bid=${bbs.bbsid}&step=${bbs.step}&depth=${bbs.depth}" class="btn ms-10">답글쓰기</a>
         </c:if>
         <a href="/community/board/edit?id=${bbs.id}&bid=${bbs.bbsid}&mode=edit" class="btn ms-10">수정</a>
         <a href="/community/board/del?id=${bbs.id }&bid=${bbs.bbsid}&mode=del" class="btn ms-10">삭제</a>

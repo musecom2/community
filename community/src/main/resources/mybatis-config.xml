@@ -6,7 +6,7 @@
      <settings>
         <setting name="mapUnderscoreToCamelCase" value="true" />
      </settings>       
-  
+ 
      <!-- 별칭셋팅 -->
      <typeAliases>
         <typeAlias type="net.musecom.community.dto.Users" alias="Users" />
@@ -15,5 +15,14 @@
         <typeAlias type="net.musecom.community.dto.BoardDto" alias="BoardDto" />
         <typeAlias type="net.musecom.community.dto.FileDto" alias="FileDto" />
      </typeAliases>
+
+     <plugins>
+       <plugin interceptor="com.github.pagehelper.PageInterceptor">
+          <property name="helperDialect" value="mysql"/> <!--  db 종류 -->
+          <property name="reasonable" value="true" /> <!-- 페이지값이 0이하로 들어와도 자동 보정해 줌 -->
+          <property name="supportMethodArguments" value="true"/>
+          <property name="params" value="pageNum=page;pageSize=size;" />
+       </plugin>
+     </plugins>
 
   </configuration>

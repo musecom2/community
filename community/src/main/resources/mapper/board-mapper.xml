@@ -5,7 +5,7 @@
 <mapper namespace="net.musecom.community.mapper.BoardMapper">
   
    <select id="allList" parameterType="int" resultType="BoardDto">
-      SELECT * FROM board WHERE bbsid=#{bid} ORDER BY id DESC
+      SELECT * FROM board WHERE bbsid=#{bid} ORDER BY ref DESC, step ASC
    </select>
    
    <select id="getBoardById" parameterType="long" resultType="BoardDto">
@@ -23,6 +23,18 @@
       VALUES
       (#{bbsid}, #{ref}, #{step}, #{depth}, #{writer}, #{userid}, #{password}, #{title}, #{content}, #{sec}, #{category})
    </insert>
+   
+   <!-- 원글일 경우 id값을 ref에 등록 -->
+   <update id="updateRef" parameterType="long">
+     UPDATE board SET ref=#{id} WHERE id=#{id}
+   </update>
+   
+   <!--  답글일 경우 글 삽입 후 업데이트 -->
+   <update id="updateStep" parameterType="map">
+      UPDATE board SET step = step + 1 
+      WHERE ref = #{ref} AND step >= #{step}
+   </update>
+   
    <update id="setUpdateBoard" parameterType="BoardDto">
       UPDATE board SET
         writer = #{writer},

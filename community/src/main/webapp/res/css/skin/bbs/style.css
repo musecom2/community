@@ -202,7 +202,7 @@ input.form-control{
     display:block;
 }
 .sortting{
-    width:150px;
+    width:180px;
     display:flex;
 }
 .sortting span{
@@ -240,6 +240,13 @@ tbody tr{
 }
 tbody tr:hover{
     background:var(--bg-light);
+}
+
+.paging li a.disabled{
+	color:#ccc;
+}
+.paging li a.disabled:hover{
+	background:#eee;
 }
 /******* 버튼 **********/
 a.btn{

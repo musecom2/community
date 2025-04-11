@@ -43,3 +43,25 @@ document.addEventListener("DOMContentLoaded", function(){
        selectBox.classList.remove('active');
     });
 });
+
+$(function(){
+  const urlParams = new URLSearchParams(window.location.search);
+  const sizeParam = urlParams.get('size');
+  if(sizeParam){
+     $('.list-ct option[value="' + sizeParam + '"]').prop('selected', true);
+  }
+  $('.list-ct').change(function(){
+     const val = $(this).val();
+     const currentUrl = window.location.href;
+     const urlParams = new URLSearchParams(currentUrl.split("?")[1]);
+     urlParams.set('size', val);
+     urlParams.set('page', '1');
+     
+     const baseUrl = currentUrl.split("?")[0];
+     const newUrl = baseUrl + "?" + urlParams.toString();
+     
+     window.location.href=newUrl;
+     
+  });
+});
+
