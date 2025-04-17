@@ -20,4 +20,5 @@ public class BoardDto {
    private String category;
    private int hit;
    private Timestamp wdate;
+   private String thumbImage;
 }

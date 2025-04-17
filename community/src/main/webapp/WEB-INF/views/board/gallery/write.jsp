@@ -119,17 +119,16 @@ $(function(){
    </c:if>
 </c:if>
 <div class="container py-5">
-        <form name="writeform" class="writeform" action="edit" method="post" onsubmit="return validateForm();">
+        <form name="writeform" class="writeform" action="write" method="post" onsubmit="return validateForm();">
             <div class="row">
                 <label class="col-1 mb-3">작성자</label>
                 <input type="text" name="writer" class="col-3 form-control mb-3" 
-                       placeholder="작성자" value="${bbs.writer }"/>
+                       placeholder="작성자" value="${user.username }"/>
 
                 <c:choose>
                 <c:when test="${user.userid==null || user.userid.isEmpty()}">                       
                    <label class="col-1 offset-1 mb-3 p-0">비밀번호</label>
-                   <input type="password" name="password" class="col-3 form-control mb-3" placeholder="비밀번호"
-                   value="${bbs.password }" />
+                   <input type="password" name="password" class="col-3 form-control mb-3" placeholder="비밀번호" />
                 </c:when>
                 <c:otherwise>
                    <div class="col-5"></div>
@@ -143,29 +142,22 @@ $(function(){
                    <select name="category" class="col-3 form-control mb-3">
                       <option value="">선택하세요</option>
                       <c:forEach var="category" items="${categories }">
-                         <option 
-                              value="${category.categoryText }"
-                              <c:if test="${category.categoryText == bbs.category }">selected</c:if>    
-                         >${category.categoryText }</option>
+                         <option value="${category.categoryText }">${category.categoryText }</option>
                       </c:forEach>
                    </select>
                    <div class="col-8"></div>
                 </c:if>
                 <label class="col-1 mb-3">제목</label>
-                <input type="text" name="title" class="form-control col-11 mb-3" placeholder="제목" value="${bbs.title }" />
+                <input type="text" name="title" class="form-control col-11 mb-3" placeholder="제목" />
 
                 <label class="col-1 mb-3">내용</label>
                 <div class="col-11 mb-3 p-0">
-                   <textarea name="content" id="content">
-                    ${bbs.content }
-                   </textarea> 
+                   <textarea name="content" id="content"></textarea> 
                 </div>
 
                 <c:if test="${badmin.sec == 1}">
                 <div class="col-12 text-right">
-                   <label><input type="checkbox" name="sec" value="1"
-                           <c:if test="${bbs.sec == 1 }">checked</c:if>
-                   > 비밀글</label>
+                   <label><input type="checkbox" name="sec" value="1"> 비밀글</label>
                 </div>
                 </c:if>
             </div>
@@ -186,10 +178,14 @@ $(function(){
 	               <input type="hidden" name="userid" value="${user.userid }" />
 	            </c:otherwise>
             </c:choose>
-            <input type="hidden" name="id" value="${param.id }" />
             <input type="hidden" name="bbsid" id="bbsid" value="${param.bid }" />
             <input type="hidden" name="tempBid" id="tempBid" value="${tempBid }" />
             <input type="hidden" name="addFileSize" id="addFileSize" value="0" />
+            <c:if test="${param.ref != null }">
+               <input type="hidden" name="ref" value="${param.ref }" />
+               <input type="hidden" name="step" value="${param.step }" />
+               <input type="hidden" name="depth" value="${param.depth }" /> 
+            </c:if>
             <sec:csrfInput/>
             
         </form>

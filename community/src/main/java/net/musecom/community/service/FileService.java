@@ -29,6 +29,10 @@ public class FileService {
 	   return fileMapper.deleteFile(id);
    }
    
+   public int deleteFileByBid(long bid) {
+	   return fileMapper.deleteFileByBid(bid);
+   }
+   
    public void trashFile(String filePath) {
 	 
 	   File baseDir = new File(filePath);
@@ -71,7 +75,7 @@ public class FileService {
    public List<FileDto> selectFileList(long bid){
 	  return fileMapper.selectFileByBid(bid);
    }
-   
+      
    public FileDto selectFileById(long id) {
 	   return fileMapper.fileById(id);
    }
@@ -80,5 +84,8 @@ public class FileService {
 	   return fileMapper.fileByFileName(filename);
    }
    
+   public FileDto selectFirstImageByBid(long bid) {
+	   return fileMapper.selectFirstImageByBid(bid);
+   }
    
 }

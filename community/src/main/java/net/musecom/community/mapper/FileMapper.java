@@ -13,8 +13,10 @@ public interface FileMapper {
 	int insertFile(FileDto file);
 	int updateFileByBid(@Param("bid") long bid, @Param("tempId") long tempId);  //임시로 등록된 bid를 게시판 bid로 업데이트
 	int deleteFile(long id);
+	int deleteFileByBid(long bid);
 	List<FileDto> selectFileByBid(long bid);
 
 	FileDto fileById(long id);
 	FileDto fileByFileName(String fname);
+	FileDto selectFirstImageByBid(long bid);
 }

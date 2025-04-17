@@ -47,7 +47,7 @@ public class BoardService {
 		return bMapper.setDeleteBoard(id);
 	}
 	
-	public BoardDto getBoardByPass(int id, String password) {
+	public BoardDto getBoardByPass(long id, String password) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("id", id);
 		params.put("password", password);

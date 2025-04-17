@@ -19,6 +19,10 @@
    DELETE FROM files WHERE id=#{id} 
 </delete>
 
+<delete id="deleteFileByBid" parameterType="long">
+   DELETE FROM files WHERE bid=#{bid} 
+</delete>
+
 <select id="selectFileByBid" parameterType="long" resultType="FileDto">
    SELECT * FROM files WHERE bid=#{bid}
 </select>
@@ -29,6 +33,13 @@
 
 <select id="fileByFileName" parameterType="String" resultType="FileDto">
    SELECT * FROM files WHERE nfilename=#{fname}
+</select>
+
+<!-- 대표이미지 가져오기 -->
+<select id="selectFirstImageByBid" resultType="FileDto">
+   SELECT * FROM files
+   WHERE bid=#{bid} AND ext IN ('jpg', 'gif', 'jpeg', 'png', 'webp')
+   ORDER BY id ASC LIMIT 1
 </select>
 
 
